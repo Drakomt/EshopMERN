@@ -47,8 +47,8 @@ export default function Card({ product }) {
     const { name, image, price } = product;
   
     return (
-      <div className="basic-card">
-        <img className="card-image" src={image} alt={name} />
+      <div className="basic-card mb-3 col-lg-3 col-md-sm-6">
+        <img className="card-image-top card-image-page" src={image} alt={name} />
         <div className="card-content">
           <h3 className="card-title">{name}</h3>
           <p className="card-price">${price}</p>

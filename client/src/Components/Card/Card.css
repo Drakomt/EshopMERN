@@ -1,4 +1,4 @@
-.card-container {
+/* .card-container {
   display: flex;
   flex-wrap: nowrap;
   overflow-x: auto;
@@ -50,4 +50,72 @@
 
 .card-button:hover {
   background-color: #ddb347;
+} */
+
+
+.card {
+  --bs-card-spacer-y: 1rem;
+  --bs-card-spacer-x: 1rem;
+  --bs-card-title-spacer-y: 0.5rem;
+  --bs-card-border-width: 1px;
+  --bs-card-border-color: var(--bs-border-color-translucent);
+  --bs-card-border-radius: 0.375rem;
+  --bs-card-box-shadow: ;
+  --bs-card-inner-border-radius: calc(0.375rem - 1px);
+  --bs-card-cap-padding-y: 0.5rem;
+  --bs-card-cap-padding-x: 1rem;
+  --bs-card-cap-bg: rgba(0,0,0,.03);
+  --bs-card-cap-color: ;
+  --bs-card-height: ;
+  --bs-card-color: ;
+  --bs-card-bg: #fff;
+  --bs-card-img-overlay-padding: 1rem;
+  --bs-card-group-margin: 0.75rem;
+  word-wrap: break-word;
+  background-clip: initial;
+  background-color: var(--bs-card-bg);
+  border: var(--bs-card-border-width) solid var(--bs-card-border-color);
+  border-radius: var(--bs-card-border-radius);
+  display: flex;
+  flex-direction: column;
+  height: var(--bs-card-height);
+  min-width: 0;
+  position: relative;
+}
+
+.product-card {
+  box-shadow: none;
+  display: flex;
+  flex-direction: column;
+  height: 600px;
+  justify-content: space-between;
+  -webkit-transform: scale(1);
+  transform: scale(1);
+  transition: box-shadow .2s ease-in-out,-webkit-transform .2s ease-in-out;
+  transition: box-shadow .2s ease-in-out,transform .2s ease-in-out;
+  transition: box-shadow .2s ease-in-out,transform .2s ease-in-out,-webkit-transform .2s ease-in-out;
+}
+
+.card-body {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: center;
+}
+
+.card-body {
+  color: var(--bs-card-color);
+  flex: 1 1 auto;
+  padding: var(--bs-card-spacer-y) var(--bs-card-spacer-x);
+}
+
+.card-image-page {
+  max-height: 100%;
+  max-width: auto;
+}
+.card-img-top {
+  height: 350px;
+  object-fit: contain;
+  object-position: center;
+  width: 100%;
 }
