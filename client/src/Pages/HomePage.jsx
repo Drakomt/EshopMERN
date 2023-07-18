@@ -1,26 +1,27 @@
-
-import Card from "../Components/Card/Card";
-import data from "../data"
+import axios from "axios";
+//import Card from "../Components/Card/Card";
+import { useState, useEffect } from "react";
+import Products from "../Components/Products/Products";
+import "./HomePage.css";
+//import 'bootstrap/dist/css/bootstrap.css';
 
 
 const HomePage = () => {
+    const [products, setProducts] = useState([]);
+
+    useEffect(() => {
+        axios.get("/products").then((res) => setProducts(res.data));
+
+        return () => {};
+    }, []);
+    
     return (
-        <div className="App">
-            
-            <main>
-                <h1>Products</h1>
-                {
-                    data.products.map(product => (
-                        <div className="card-container row" key={product.token}>
-                            {/* <h2>{product.name}</h2>
-                            <img alt='' src={product.image} width={300}></img>
-                            <p>{product.description}</p> */}
-                            <Card product={product} />
-                        </div>
-                    ))
-                }
-            </main>
-        </div>
+        <>
+            <h1>Products</h1>
+            <div className="products">
+                <Products products={products} />
+            </div>
+        </>
     )
 }
 

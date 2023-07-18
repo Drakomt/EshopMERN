@@ -3,6 +3,8 @@ import cors from "cors";
 import mongoose from "mongoose";
 import userRouter from "./Routes/userRouter.js";
 import seedRouter from "./Routes/seedRouter.js";
+import orderRouter from "./Routes/orderRouter.js";
+import productRouter from "./Routes/productRouter.js";
 import express from "express";
 
 dotenv.config();
@@ -17,6 +19,8 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use("/api/users", userRouter);
 app.use("/api/seed", seedRouter);
+app.use("/api/orders", orderRouter);
+app.use("/api/products", productRouter);
 
 mongoose.connect(process.env.MONGO_DB_URI).then(() => {
   app.listen(port, () => {

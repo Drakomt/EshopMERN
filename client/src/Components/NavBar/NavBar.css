@@ -1,0 +1,11 @@
+.App-header {
+    /* display: flex; */
+    color: white;
+  
+    .container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+    }
+}
