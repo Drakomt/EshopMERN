@@ -12,6 +12,7 @@
     transition: box-shadow var(--transition), scale var(--transition);
     box-shadow: var(--shadow);
     scale: 1;
+    padding: 1em;
 
     /* &:hover {
         --shadow: 10px 10px 10px #888;
@@ -24,26 +25,18 @@
     scale: 1.02;
 }
 
-.card-image-container {
-    height: calc(var(--card-height) * 2 / 3);
-}
 
 .card-image-page {
-    /* max-width: auto;
-    object-fit: contain;
-    height: 400px; */
-
     max-width: auto;
     object-fit: contain;
-    height: calc(var(--card-height) * 2 / 3);
+    height: calc(var(--card-height) * 2 / 3 - 1em);
 }
 
 .card-body {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    /* height: 200px; */
-    height: calc(var(--card-height) / 3);
+    height: calc(var(--card-height) / 3 - 1em);
 }
 
 .text-shortener {
