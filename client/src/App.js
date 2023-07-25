@@ -6,6 +6,7 @@ import NavBar from "./Components/NavBar/NavBar";
 import { SignInPage } from "./Pages/SignInPage/SignInPage";
 import { ToastContainer } from "react-toastify";
 import { SignUpPage } from "./Pages/SignUpPage/SignUpPage";
+import CartPage from "./Pages/CartPage/CartPage";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
             <Route path="/" element={<HomePage />} />
             <Route path="/signin" element={<SignInPage />} />
             <Route path="/signup" element={<SignUpPage />} />
+            <Route path="/cart" element={<CartPage />} />
           </Routes>
         </main>
       </div>
