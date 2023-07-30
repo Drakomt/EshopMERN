@@ -5,6 +5,9 @@ import { LinkContainer } from "react-router-bootstrap";
 import "./NavBar.css";
 import { Store } from "../../Context/Store";
 import { USER_SIGNOUT } from "../../Reducers/Actions";
+import SearchBox from "../SearchBox/SearchBox";
+import axios from "axios";
+import { AddToCartHandler } from "../Services/AddToCart";
 
 const NavBar = () => {
   const navigate = useNavigate();
@@ -15,6 +18,20 @@ const NavBar = () => {
   //     userInfo,
   //   } = state;
   const { cartItems } = cart;
+
+  const handleDragOver = (event) => {
+    event.preventDefault();
+  };
+
+  const handleDrop = async (event) => {
+    event.preventDefault();
+
+    const productId = event.dataTransfer.getData("text/plain");
+
+    const { data } = await axios.get(`/products/${productId}`);
+
+    await AddToCartHandler(data, cartItems, ctxDispatch);
+  };
 
   const signoutHandler = () => {
     ctxDispatch({ type: USER_SIGNOUT });
@@ -45,11 +62,12 @@ const NavBar = () => {
                 />
               </Navbar.Brand>
             </LinkContainer>
-            <nav to="/" className="d-flex mx-auto align-items-center">
-              <div>
-                Search
-                <input type="text"></input>
-              </div>
+            <nav
+              onDragOver={handleDragOver}
+              onDrop={handleDrop}
+              className="d-flex mx-auto align-items-center"
+            >
+              <SearchBox />
             </nav>
             {/* <Link to="/cart" className="nav-link me-4 ms-4">
               <i className="fas fa-shopping-cart text-white"></i>

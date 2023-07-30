@@ -150,26 +150,26 @@ const PlaceOrderPage = () => {
                 <ListGroup.Item>
                   <Row>
                     <Col>Items: </Col>
-                    <Col>${round2(cart.itemsPrice)}</Col>
+                    <Col>${cart.itemsPrice.toFixed(2)}</Col>
                   </Row>
                 </ListGroup.Item>
                 <ListGroup.Item>
                   <Row>
                     <Col>Shipping: </Col>
-                    <Col>${round2(cart.shippingPrice)}</Col>
+                    <Col>${cart.shippingPrice.toFixed(2)}</Col>
                   </Row>
                 </ListGroup.Item>
                 <ListGroup.Item>
                   <Row>
                     <Col>Tax: </Col>
-                    <Col>${round2(cart.taxPrice)}</Col>
+                    <Col>${cart.taxPrice.toFixed(2)}</Col>
                   </Row>
                 </ListGroup.Item>
                 <ListGroup.Item>
                   <Row>
                     <Col>Total: </Col>
                     <Col>
-                      <strong>${round2(cart.totalPrice)}</strong>
+                      <strong>${cart.totalPrice.toFixed(2)}</strong>
                     </Col>
                   </Row>
                 </ListGroup.Item>

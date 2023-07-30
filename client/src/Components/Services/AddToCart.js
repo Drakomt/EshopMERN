@@ -8,7 +8,7 @@ export const AddToCartHandler = async (product, cartItems, ctxDispatch) => {
   try {
     const { data } = await axios.get(`/products/id/${product._id}`);
     if (data.countInStock < quantity) {
-      toast.error("Sorry, We can't add this product to your cart");
+      toast.error("Sorry, Product is out of stock");
       return;
     }
 
