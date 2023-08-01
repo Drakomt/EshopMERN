@@ -12,6 +12,7 @@ import PaymentPage from "./Pages/PaymentPage/PaymentPage";
 import PlaceOrderPage from "./Pages/PlaceOrderPage/PlaceOrderPage";
 import SearchPage from "./Pages/SearchPage/SearchPage";
 import ProductPage from "./Pages/ProductPage/ProductPage";
+import OrderPage from "./Pages/OrderPage/OrderPage";
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
             <Route path="/payment" element={<PaymentPage />} />
             <Route path="/placeorder" element={<PlaceOrderPage />} />
             <Route path="/search" element={<SearchPage />} />
+            <Route path="/orders/:id" element={<OrderPage />} />
           </Routes>
         </main>
       </div>

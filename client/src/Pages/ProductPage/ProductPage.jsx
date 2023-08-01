@@ -4,13 +4,13 @@ import { Col, Row } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
 import { useContext, useEffect, useReducer } from "react";
 import { Store } from "../../Context/Store";
-import { AddToCartHandler } from "../../Components/Services/AddToCart";
 import { GET_FAIL, GET_REQUEST, GET_SUCCESS } from "../../Reducers/Actions";
 import axios from "axios";
-import { getError } from "../../Utils";
 import { productPageReducer } from "../../Reducers/ProductPageReducer";
 import ProductDescription from "../../Components/ProductDescription/ProductDescription";
 import CartDescription from "../../Components/CartDescription/CartDescription";
+import { AddToCartHandler } from "../../Services/AddToCart";
+import { GetError } from "../../Services/GetError";
 
 const ProductPage = () => {
   const params = useParams();
@@ -46,7 +46,7 @@ const ProductPage = () => {
         const res = await axios.get(`/products/token/${token}`);
         dispatch({ type: GET_SUCCESS, payload: res.data });
       } catch (err) {
-        dispatch({ type: GET_FAIL, payload: getError(err) });
+        dispatch({ type: GET_FAIL, payload: GetError(err) });
       }
     };
 

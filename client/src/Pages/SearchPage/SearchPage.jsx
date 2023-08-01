@@ -5,70 +5,16 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import Title from "../../Components/Title/Title";
 import { Button, Col, Row } from "react-bootstrap";
-import { getError, getFilterUrl } from "../../Utils";
 import Rating from "../../Components/Rating/Rating";
 import Loading from "../../Components/Loading/Loading";
 import MsgBox from "../../Components/MsgBox/MsgBox";
 import Product from "../../Components/Product/Product";
 import { LinkContainer } from "react-router-bootstrap";
-
-const reducer = (state, { type, payload }) => {
-  switch (type) {
-    case GET_REQUEST:
-      return { ...state, loading: true };
-    case GET_SUCCESS:
-      return {
-        ...state,
-        loading: false,
-        products: payload.products,
-        page: payload.page,
-        pages: payload.pages,
-        countProducts: payload.countProducts,
-      };
-    case GET_FAIL:
-      return { ...state, error: payload, loading: false };
-
-    default:
-      return state;
-  }
-};
-
-const prices = [
-  {
-    name: "$1 to $50",
-    value: "1-50",
-  },
-  {
-    name: "$51 to $200",
-    value: "51-200",
-  },
-  {
-    name: "$201 to $1000",
-    value: "201-1000",
-  },
-];
-
-export const ratings = [
-  {
-    name: "4stars & up",
-    rating: 4,
-  },
-
-  {
-    name: "3stars & up",
-    rating: 3,
-  },
-
-  {
-    name: "2stars & up",
-    rating: 2,
-  },
-
-  {
-    name: "1stars & up",
-    rating: 1,
-  },
-];
+import { GetError } from "../../Services/GetError";
+import { GetFilterUrl } from "../../Services/GetFilterUrl";
+import { SearchPageReducer } from "../../Reducers/SearchPageReducer";
+import { prices, ratings } from "./utils";
+import "./SearchPage.css";
 
 const SearchPage = () => {
   const [categories, setCategories] = useState([]);
@@ -83,7 +29,7 @@ const SearchPage = () => {
   const page = searchParams.get("page") || 1;
 
   const [{ loading, error, products, pages, countProducts }, dispatch] =
-    useReducer(reducer, {
+    useReducer(SearchPageReducer, {
       loading: true,
       error: "",
     });
@@ -93,8 +39,9 @@ const SearchPage = () => {
       try {
         const { data } = await axios.get(`/products/categories`);
         setCategories(data);
-      } catch (err) {
-        toast.error(getError(err));
+      } catch (error) {
+        //toast.error(GetError(err));
+        toast.error(error.message);
       }
     };
 
@@ -107,11 +54,12 @@ const SearchPage = () => {
         dispatch({ type: GET_REQUEST });
 
         const { data } = await axios.get(
-          `/products/search?page=${page}&query=${query}&category=${category}&price=${price}&rating=${rating}&order=${order}`
+          // `/products/search?page=${page}&query=${query}&category=${category}&price=${price}&rating=${rating}&order=${order}`
+          "/products/search?" + GetFilterUrl(search, {}, true)
         );
         dispatch({ type: GET_SUCCESS, payload: data });
-      } catch (err) {
-        dispatch({ type: GET_FAIL, payload: getError(err) });
+      } catch (error) {
+        dispatch({ type: GET_FAIL, payload: GetError(error) });
       }
     };
 
@@ -129,7 +77,7 @@ const SearchPage = () => {
               <li>
                 <Link
                   className={"all" === category ? "text-bold" : ""}
-                  to={getFilterUrl(search, { category: "all" })}
+                  to={GetFilterUrl(search, { category: "all" })}
                 >
                   Any
                 </Link>
@@ -138,7 +86,7 @@ const SearchPage = () => {
                 <li key={c}>
                   <Link
                     className={c === category ? "text-bold" : ""}
-                    to={getFilterUrl(search, { category: c })}
+                    to={GetFilterUrl(search, { category: c })}
                   >
                     {c}
                   </Link>
@@ -152,7 +100,7 @@ const SearchPage = () => {
               <li>
                 <Link
                   className={"all" === price ? "text-bold" : ""}
-                  to={getFilterUrl(search, { price: "all" })}
+                  to={GetFilterUrl(search, { price: "all" })}
                 >
                   Any
                 </Link>
@@ -160,7 +108,7 @@ const SearchPage = () => {
               {prices.map((p) => (
                 <li key={p.value}>
                   <Link
-                    to={getFilterUrl(search, { price: p.value })}
+                    to={GetFilterUrl(search, { price: p.value })}
                     className={p.value === price ? "text-bold" : ""}
                   >
                     {p.name}
@@ -175,8 +123,8 @@ const SearchPage = () => {
               {ratings.map((r) => (
                 <li key={r.name}>
                   <Link
-                    to={getFilterUrl(search, { rating: r.rating })}
-                    className={`${r.rating}` === `${rating}` ? "text-bold" : ""}
+                    to={GetFilterUrl(search, { rating: r.rating })}
+                    className={`${r.rating}` === `${rating}` ? "text-bold" : ""} //!Change this to a class to highlight (bold) the selected rating.
                   >
                     <Rating caption={" "} rating={r.rating}></Rating>
                   </Link>
@@ -218,7 +166,7 @@ const SearchPage = () => {
                   <select
                     value={order}
                     onChange={(e) => {
-                      navigate(getFilterUrl(search, { order: e.target.value }));
+                      navigate(GetFilterUrl(search, { order: e.target.value }));
                     }}
                   >
                     <option value="newest">Newest Arrivals</option>
@@ -236,24 +184,29 @@ const SearchPage = () => {
                   </Col>
                 ))}
               </Row>
-
               <div>
-                {[...Array(pages).keys()].map((x) => (
+                {[...Array(pages).keys()].map((pageIndex) => (
                   <LinkContainer
-                    key={x + 1}
+                    key={pageIndex + 1}
                     className="mx-1"
                     to={{
                       pathname: "/search",
-                      search: getFilterUrl(search, { page: x + 1 }, true),
+                      search: GetFilterUrl(
+                        search,
+                        { page: pageIndex + 1 },
+                        true
+                      ),
                     }}
                   >
                     <Button
                       className={
-                        Number(page) === x + 1 ? "current-page-number" : ""
+                        Number(page) === pageIndex + 1
+                          ? "current-page-number"
+                          : ""
                       }
                       variant="light"
                     >
-                      {x + 1}
+                      {pageIndex + 1}
                     </Button>
                   </LinkContainer>
                 ))}

@@ -1,22 +1,23 @@
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { getFilterUrl } from "../../Utils";
+
 import { Button, Form, FormControl, InputGroup } from "react-bootstrap";
+import { GetFilterUrl } from "../../Services/GetFilterUrl";
 
 const SearchBox = () => {
   const [query, setQuery] = useState("");
   const navigate = useNavigate();
-  const { search } = useLocation();
+  const { search, pathname } = useLocation();
 
   const submitHandler = (e) => {
     e.preventDefault();
-    const link = getFilterUrl(search, { query: query });
+    const link = GetFilterUrl(search, { query: query || "all" });
     navigate(link);
   };
 
   useEffect(() => {
-    if (!query) return;
-    const link = getFilterUrl(search, { query: query });
+    if (pathname !== "/search" && !query) return;
+    const link = GetFilterUrl(search, { query: query || "all" });
     navigate(link);
   }, [query]);
 

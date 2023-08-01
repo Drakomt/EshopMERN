@@ -8,7 +8,7 @@ const orderRouter = express.Router();
 orderRouter.get(
   "/:id",
   isAuth,
-  expressAsyncHandler(async (req, res, next) => {
+  expressAsyncHandler(async (req, res) => {
     const { id } = req.params;
     const order = await Order.findById(id);
     if (order) {
@@ -22,11 +22,11 @@ orderRouter.get(
 orderRouter.post(
   "/",
   isAuth,
-  expressAsyncHandler(async (req, res, next) => {
+  expressAsyncHandler(async (req, res) => {
     try {
       const newOrder = new Order({
         orderItems: req.body.orderItems.map((item) => ({
-          // ...item,                                      //! this may be a problem
+          ...item, //! this may be a problem
           product: item._id,
         })),
         shippingAddress: req.body.shippingAddress,

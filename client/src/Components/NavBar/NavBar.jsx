@@ -7,7 +7,7 @@ import { Store } from "../../Context/Store";
 import { USER_SIGNOUT } from "../../Reducers/Actions";
 import SearchBox from "../SearchBox/SearchBox";
 import axios from "axios";
-import { AddToCartHandler } from "../Services/AddToCart";
+import { AddToCartHandler } from "../../Services/AddToCart";
 
 const NavBar = () => {
   const navigate = useNavigate();

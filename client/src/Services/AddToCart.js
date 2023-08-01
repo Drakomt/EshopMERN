@@ -1,6 +1,6 @@
 import axios from "axios";
 import { toast } from "react-toastify";
-import { ADD_TO_CART, GET_FAIL } from "../../Reducers/Actions";
+import { ADD_TO_CART, GET_FAIL } from "../Reducers/Actions";
 
 export const AddToCartHandler = async (product, cartItems, ctxDispatch) => {
   const existingItem = cartItems.find((item) => item._id === product._id);
