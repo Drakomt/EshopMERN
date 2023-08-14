@@ -47,6 +47,7 @@ userRouter.post(
   })
 );
 
+//test if isAuth middleware is working
 userRouter.get("/", isAuth, async (req, res) => {
   res.status(200).send({ message: "ok" });
 });

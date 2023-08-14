@@ -88,7 +88,7 @@ const PlaceOrderPage = () => {
       <Row>
         <Col md={8}>
           <Card className="mb-3">
-            <Card.Body>
+            <Card.Body className="h-100">
               <Card.Title>Shipping</Card.Title>
               <Card.Text>
                 <strong>Name: </strong>
@@ -106,7 +106,7 @@ const PlaceOrderPage = () => {
             </Card.Body>
           </Card>
           <Card className="mb-3">
-            <Card.Body>
+            <Card.Body className="h-100">
               <Card.Title>Payment</Card.Title>
               <Card.Text>
                 <strong>Method: </strong>
@@ -126,7 +126,7 @@ const PlaceOrderPage = () => {
                         <img
                           src={item.image}
                           alt={item.title}
-                          className="img-fluid rounded img-thumbnail"
+                          className="img-fluid rounded img-thumbnail" //remove img-thumbnail to remove the border
                         />{" "}
                         <Link to={`/product/${item.token}`}>{item.title}</Link>
                       </Col>
@@ -144,7 +144,7 @@ const PlaceOrderPage = () => {
         </Col>
         <Col md={4}>
           <Card>
-            <Card.Body>
+            <Card.Body className="h-100">
               <Card.Title>Summary: </Card.Title>
               <ListGroup variant="flush">
                 <ListGroup.Item>

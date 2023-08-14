@@ -71,7 +71,7 @@ const OrderPage = () => {
       <Row>
         <Col md={8}>
           <Card className="mb-3">
-            <Card.Body>
+            <Card.Body className="h-100">
               <Card.Title>Shipping</Card.Title>
               <Card.Text>
                 <strong>Name: </strong> {order.shippingAddress.fullName} <br />
@@ -101,17 +101,17 @@ const OrderPage = () => {
             </Card.Body>
           </Card>
           <Card className="mb-3">
-            <Card.Body>
+            <Card.Body className="h-100">
               <Card.Title>Items</Card.Title>
               <ListGroup variant="flush">
                 {order.orderItems.map((item) => (
                   <ListGroup.Item key={item._id}>
                     <Row className="align-items-center">
-                      <Col md={6}>
+                      <Col md={6} xs={6}>
                         <img
                           src={item.image}
                           alt={item.title}
-                          className="img-fluid rounded img-thumbnail"
+                          className="img-fluid rounded img-thumbnail" //remove img-thumbnail to remove the border
                         ></img>{" "}
                         <Link to={`/product/${item.token}`}>{item.title}</Link>
                       </Col>
@@ -128,7 +128,7 @@ const OrderPage = () => {
         </Col>
         <Col md={4}>
           <Card className="mb-3">
-            <Card.Body>
+            <Card.Body className="h-100">
               <Card.Title>Order Summary</Card.Title>
               <ListGroup variant="flush">
                 <ListGroup.Item>
