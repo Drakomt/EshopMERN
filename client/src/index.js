@@ -10,7 +10,7 @@ import { StoreProvider } from "./Context/Store";
 // axios.defaults.baseURL = "http://localhost:5000/api";
 axios.defaults.baseURL = process.env.REACT_APP_API_BASE_URL
   ? process.env.REACT_APP_API_BASE_URL
-  : "https://netflix-clone-server-three.vercel.app/api";
+  : "eshop-mern-server.vercel.app/api";
 
 // const root = ReactDOM.createRoot(document.getElementById("root"));
 // root.render(
